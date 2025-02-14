@@ -1,0 +1,9 @@
+Aca estara el from
+
+<form action="{% url "add_products" %}" method='post'>
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Agregar</button>
+</from>
+
+
