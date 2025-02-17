@@ -1,0 +1,118 @@
+---
+title: "openai-api"
+---
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+
+### Clase 1
+
+Instalamos openai
+```{python}
+%pip install openai
+```
+
+```{python}
+%pip install openai 
+```
+
+Agregamos la key de open-ai de las variables de entorno
+```{python}
+from dotenv import load_dotenv
+import os
+import openai
+
+# Toma las variables de entorno del archivo .env
+load_dotenv() 
+
+# Carga la variable que contiene el API key de OpenAI
+openai.api_key  = os.environ["OPENAI_API_KEY"]
+```
+
+
+```{python}
+from openai import OpenAI
+```
+
+```{python}
+import openai
+
+client = openai.OpenAI()  # O usa openai.Client() en versiones antiguas
+
+completion = client.chat.completions.create(
+    model="gpt-4o-mini",
+    messages=[
+        {"role": "user", "content": "Decide si el sentimiento de un Tweet es positivo, neutral, o negativo. \
+  \n\nTweet: \"#LoNuevoEnPlatzi es el Platzibot 🤖. Un asistente creado con Inteligencia Artificial para acompañarte en tu proceso de aprendizaje.\
+  \"\nSentiment:"}
+    ]
+)
+
+print(completion.choices[0].message.content)
+
+
+```
+
+
+```{python}
+
+completion = client.chat.completions.create(
+    model="gpt-4o-mini",
+    store=True,
+    messages=[
+        {"role": "user", "content": "Decide si el sentimiento de un Tweet es positivo, neutral, o negativo. \
+  \n\nTweet: \"#LoNuevoEnPlatzi es el Platzibot 🤖. Un asistente creado con Inteligencia Artificial para acompañarte en tu proceso de aprendizaje.\
+  \"\nSentiment:"}
+    ]
+)
+print(completion.choices[0].message.content)
+```
+
+
+
+```{python}
+completion = client.chat.completions.create(
+    model="gpt-4o-mini",
+    store=True,
+    messages=[
+        {"role": "system", "content": "Eres un especialista en psicologia, pero tus consejos son todos como si los estuvieras rapeando"},
+        {"role": "user", "content":"Necesito un consejo de como poder dejar de procastinar"}
+    ]
+)
+
+print(completion.choices[0].message.content)
+```
+
+
+
+
+```{python}
+completion = client.chat.completions.create(
+    model="gpt-4o-mini",
+    store=True,
+    messages=[
+        {"role": "system", "content": "Eres un especialista en psicologia, pero tus consejos son todos como si los estuvieras rapeando"},
+        {"role": "user", "content":"Necesito un consejo de como poder dejar de procastinar"}
+    ],
+    temperature=0.2
+)
+
+print(completion.choices[0].message.content)
+```
+
+
+
+```{python}
+completion = client.chat.completions.create(
+    model="gpt-4o-mini",
+    store=True,
+    messages=[
+        {"role": "system", "content": "Eres un especialista en psicologia, pero tus consejos son todos como si los estuvieras rapeando"},
+        {"role": "user", "content":"Necesito un consejo de como poder dejar de procastinar"}
+    ],
+    temperature=1
+)
+
+print(completion.choices[0].message.content)
+```
