@@ -10,14 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
-import environ
-
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env = environ.Env().read_env(os.path.join(BASE_DIR, ".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -86,12 +83,8 @@ WSGI_APPLICATION = 'coffee_shop.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB', 'coffee_shop_db'),
-        'USER': os.getenv('POSTGRES_USER', 'coffee_shop_user'),
-        'PASSWORD': env.str('DJANGO_DB_PASSWORD'),
-        'HOST': os.getenv('POSTGRES_HOST', 'db'),
-        'PORT': os.getenv('POSTGRES_PORT', '5432'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -120,7 +113,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es-cl'
 
-TIME_ZONE = 'America/Santiago'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
