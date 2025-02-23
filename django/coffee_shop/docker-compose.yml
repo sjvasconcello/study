@@ -1,0 +1,31 @@
+version: "3.3"
+
+services:
+  db:
+    image: postgres:13
+    container_name: coffee_shop_db
+    restart: always
+    environment:
+      POSTGRES_DB: coffee_shop_db
+      POSTGRES_USER: coffee_shop_user
+      POSTGRES_PASSWORD: coffee_shop_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    container_name: website_coffee_django
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://coffee_shop_user:coffee_shop_password@db:5432/coffee_shop_db
+
+volumes:
+  postgres_data:
