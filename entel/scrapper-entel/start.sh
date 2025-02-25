@@ -1,1 +1,0 @@
-scrapy runspider entel_scrapter.py -o entel_scrapter.json 
